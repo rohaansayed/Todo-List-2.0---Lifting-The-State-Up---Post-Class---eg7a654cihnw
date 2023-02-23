@@ -5,6 +5,11 @@ import Header from './Header';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import '../styles/App.css';
 const App = () => {
+  const [active, setActive] = useState('inbox');
+
+  const handleSideNavClick = (page) => {
+    setActive(page);
+  };
 
 
   return (
@@ -12,10 +17,10 @@ const App = () => {
     <Header />
       <div className='row'>
         <div className='col-md-2'>
-          <SideNav change={}/>
+          <SideNav change={handleSideNavClick}/>
         </div>
         <div className='col-md-10'>
-          <MainSection active = {}/>
+          <MainSection active = {active}/>
         </div>
       </div>
     </div>

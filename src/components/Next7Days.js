@@ -3,17 +3,20 @@ import ListRender from "./ListRender";
 
 const Next7Days = (props) => {
   const date = new Date();
-  const next7DaysList = props.list.filter((task) => {
-    const taskDate = new Date(task.date);
-    const diffTime = taskDate.getTime() - date.getTime();
+  const filteredList = props.list.filter((task) => {
+    const diffTime = Math.abs(task.date - date);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays >= 1 && diffDays <= 7;
+    if (diffDays < 8) {
+      return true;
+    } else {
+      return false;
+    }
   });
 
 
   return (
     <div id="next-list">
-      <ListRender list={next7DaysList}/>
+      <ListRender list={filteredList}/>
     </div>
   );
 };

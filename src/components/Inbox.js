@@ -60,7 +60,7 @@ const Inbox = (props) => {
       <div id="inbox">
         {props.list.map((list) => {
           return (
-            <div className="box" key={index}>
+            <div className="box">
               <div className="task">
                 {list.title} ({list.date.toLocaleDateString()})
               </div>

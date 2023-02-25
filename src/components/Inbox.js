@@ -2,32 +2,30 @@ import React, { useState, useRef } from "react";
 
 const Inbox = (props) => {
  const [newTask, setNewTask] = useState(false);
-  const titleRef = useRef(null);
-  const dateRef = useRef(null);
 
-  const handleNewTaskClick = () => {
+  const titleRef = useRef(null);
+  const calendarRef = useRef(null);
+
+  const newTaskHandler = (e) => {
     setNewTask(true);
   };
 
-  const handleAddTaskClick = (event) => {
-    event.preventDefault();
-
-    const newTitle = titleRef.current.value;
-    const newDate = dateRef.current.value;
-
-    // Create a new task object and add it to the list
-    const newTask = { title: newTitle, date: newDate };
-    props.addTask(newTask);
-
-    // Reset the form
-    titleRef.current.value = "";
-    dateRef.current.value = "2022-09-27";
+  const addHandler = (e) => {
+    e.preventDefault();
+    if (titleRef.current.value === "") {
+      window.alert("Task cannot be empty");
+      return;
+    }
+    let newObj = {
+      number: props.list.length + 1,
+      title: titleRef.current.value,
+      date: new Date(calendarRef.current.value)
+    };
+    props.append(newObj);
     setNewTask(false);
   };
 
-  const handleCancelClick = () => {
-    titleRef.current.value = "";
-    dateRef.current.value = "2022-09-27";
+  const cancelHandler = (e) => {
     setNewTask(false);
   };
  
@@ -36,23 +34,23 @@ const Inbox = (props) => {
     <div>
       <h3>Inbox</h3>
       {!newTask && (
-        <button className="new" onClick={handleNewTaskClick} id='add-new'>
+        <button className="new" onClick={newTaskHandler} id='add-new'>
           +Add New
         </button>
       )}
       {newTask && (
         <form className="newtask-box">
-          <input type="text" id="title" ref={}></input>
+          <input type="text" id="title" ref={titleRef}></input>
           <div className="buttons">
-            <button className="new" id="add-list" onClick={handleAddTaskClick}>
+            <button className="new" id="add-list" onClick={addHandler}>
               Add Task
             </button>
-            <button className="new" onClick={handleCancelClick}>
+            <button className="new" onClick={cancelHandler}>
               Cancel
             </button>
             <input
               type="date"
-              ref={}
+              ref={calendarRef}
               defaultValue="2022-09-27"
               id="date"
             ></input>
@@ -64,7 +62,7 @@ const Inbox = (props) => {
           return (
             <div className="box" key={index}>
               <div className="task">
-                {list.title} ({list.date})
+                {list.title} ({list.date.toLocaleDateString()})
               </div>
             </div>
           );

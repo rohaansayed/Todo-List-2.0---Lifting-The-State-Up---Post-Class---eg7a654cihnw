@@ -5,11 +5,7 @@ import Header from './Header';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import '../styles/App.css';
 const App = () => {
-  const [active, setActive] = useState('inbox');
-
-  const handleSideNavClick = (page) => {
-    setActive(page);
-  };
+  const [active, setActive] = useState("INBOX");
 
 
   return (

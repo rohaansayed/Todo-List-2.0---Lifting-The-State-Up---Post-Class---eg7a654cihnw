@@ -12,7 +12,7 @@ const App = () => {
     <Header />
       <div className='row'>
         <div className='col-md-2'>
-          <SideNav change={handleSideNavClick}/>
+          <SideNav change={setActive}/>
         </div>
         <div className='col-md-10'>
           <MainSection active = {active}/>
